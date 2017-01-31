@@ -1,0 +1,315 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 0.9em;
+    padding: 6px;
+}
+
+a {
+    color: #387FB1;
+}
+
+a:visited {
+    color: purple;
+}
+
+span.path {
+  cursor: pointer;
+  color: #387FB1;
+}
+
+span.path img {
+  margin-bottom: -3px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.tablesorter td {
+    color: black !important;
+}
+
+hr {
+    color: #99BFE6;
+}
+
+.message {
+    padding: 10px 0 4px;
+}
+
+.pagination,
+#advanced {
+    padding-top: 4px;
+    display: none;
+}
+
+.results table {
+    display: none;
+    margin: 5px 0 5px;
+}
+
+.prev,
+.next {
+    padding-left: .4em;
+    cursor: pointer;
+}
+
+.border {
+    padding: .3em;
+    border-radius: 8px;
+    border: 1px solid #129FEA;
+}
+
+#form-container {
+    max-width: 1100px;
+}
+
+@media only screen and (max-width:480px) {
+    .pure-menu-item > button {
+        margin: .5em 0 .3em;
+    }
+}
+
+.pure-grids .ui-datepicker .ui-datepicker-title select {
+    font-weight: normal;
+    font-size: .9em;
+}
+
+#advanced textarea, #advanced input {
+    width: 100%;
+    margin: 0.2em 0 0.2em;
+}
+
+#advanced textarea[readonly] {
+    color: black;
+}
+
+[class^="pure-u"] {
+    padding: .2em;
+}
+
+.pure-menu {
+    margin-bottom: .3em;
+}
+
+.pure-button {
+    border-radius: 4px;
+}
+
+.white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 4px;
+}
+
+#info p {
+    margin-bottom: .3em;
+}
+
+#info ul {
+    margin-top: 0;
+}
+
+.button-group > li:first-child > label > .pure-button {
+    border-radius: 1000px 0 0 1000px;
+    padding-right: 0.7em;
+}
+
+.button-group > li:last-child > label > .pure-button {
+    border-radius: 0 1000px 1000px 0;
+    padding-left: 0.7em;
+    margin-left: -.3em;
+}
+
+label[for=advanced_settings] {
+    margin-left: .2em;
+}
+
+input[toggle] {
+    display: none;
+}
+
+input[toggle]:checked + .pure-button,
+input[toggle]:checked + .pure-button:active,
+input[toggle]:checked + .pure-button:hover {
+    box-shadow: 0 0 0 1px rgba(0, 100, 200, .15) inset, 0 0 6px rgba(0, 100, 200, .2) inset;
+    background-color: #F0F8FF;
+    background-image: none;
+    position: relative;
+    z-index: 2;
+    /*        border: 2px solid #99BFE6;
+    background-color: #F0F8FF;
+*/
+}
+
+input[type=submit].pure-button {
+    font-weight: bold;
+}
+/*    input[type=checkbox],
+input[type=radio] {
+    vertical-align: bottom;
+    position: relative;
+    bottom: 0px;
+}*/
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#form-container input,
+#form-container select {
+    box-shadow: none;
+}
+
+#form-container input,
+#form-container select,
+#form-container textarea {
+    border-color: #999;
+    transition: border-color 0.1s ease-in-out 0s, box-shadow 0.1s ease-in-out 0s;
+}
+
+#form-container input:not([type=submit]):focus,
+#form-container select:focus,
+#form-container textarea:focus,
+#form-container .multiselect.active select {
+    border-color: #129FEA;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px rgba(102, 175, 233, .6);
+}
+/* Multiselect */
+
+.multiselect {
+    display: inline-block;
+}
+
+.selectBox,
+.checkboxes_container {
+    position: relative;
+}
+
+.selectBox #main {
+    width: 100%;
+    margin: 0;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#checkboxes {
+    display: none;
+    border: 1px #888 solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 10;
+}
+
+#checkboxes label {
+    display: block;
+    margin: 0;
+    padding: .2em .3em;
+}
+
+#checkboxes > label {
+    padding-top: .4em;
+}
+
+#checkboxes label:hover {
+    background-color: #3399ff;
+}
+
+#checkboxes input[type=checkbox] {
+    margin-right: .3em;
+}
+/****** Icon Font *******/
+
+@font-face {
+  font-family: 'fontello';
+  src: url('../font/fontello.eot?58136594');
+  src: url('../font/fontello.eot?58136594#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?58136594') format('woff2'),
+       url('../font/fontello.woff?58136594') format('woff'),
+       url('../font/fontello.ttf?58136594') format('truetype'),
+       url('../font/fontello.svg?58136594#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?58136594#fontello') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-cog:before { content: '\e800'; } /* '' */
+.icon-info:before { content: '\e801'; } /* '' */
+.icon-help:before { content: '\e802'; } /* '' */
+.icon-floppy:before { content: '\e803'; } /* '' */
+.icon-download:before { content: '\e804'; } /* '' */
+.icon-download-1:before { content: '\e805'; } /* '' */
+.icon-spin3:before { content: '\e832'; } /* '' */
+.icon-copy:before { content: '\f0c5'; } /* '' */
+.icon-download-cloud:before { content: '\f0ed'; } /* '' */
+.icon-help-1:before { content: '\f128'; } /* '' */
+.icon-image:before { content: '\f1c5'; } /* '' */
+
+.pure-button.icon {
+    padding: .5em;
+}
+/****** End Icon Font *******/
