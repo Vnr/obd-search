@@ -180,6 +180,7 @@ $(document).ready(function() {
                         'Ничего не найдено'
                     );
                 }
+                
                 if (data.hits.total > 0) {
                     var trHTML = '';
                     data.hits.hits.forEach(function(row) {
