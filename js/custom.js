@@ -1,31 +1,3 @@
-/* Russian (UTF-8) initialisation for the jQuery UI date picker plugin. */
-/* Written by Andrew Stromnov (stromnov@gmail.com). */
-// https://jquery-ui.googlecode.com/svn/tags/latest/ui/i18n/jquery.ui.datepicker-ru.js
-jQuery(function($) {
-    $.datepicker.regional['ru'] = {
-        closeText: 'Закрыть',
-        prevText: '&#x3c;Пред',
-        nextText: 'След&#x3e;',
-        currentText: 'Сегодня',
-        monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-        ],
-        monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
-            'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'
-        ],
-        dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
-        dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
-        dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-        weekHeader: 'Нед',
-        dateFormat: 'dd.mm.yy',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-    };
-    $.datepicker.setDefaults($.datepicker.regional['ru']);
-});
-
 function copyTextToClipboard(text) {
     var textArea = document.createElement("textarea");
 
@@ -83,6 +55,20 @@ function copyTextToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
+function downloadObject(text, filename, type) {
+    var file = new Blob([text], {type: type});
+    if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveOrOpenBlob(file, filename);
+    } else {
+        console.log('saving');
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(file);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+}
 
 // Main
 $(document).ready(function() {
@@ -102,6 +88,7 @@ $(document).ready(function() {
 
     var params_template = {
         "query": {
+            //"constant_score": {
             "filtered": {
                 "query": {
                     "bool": {
@@ -113,11 +100,11 @@ $(document).ready(function() {
                 "filter": {
                     "bool": {
                         "must": [],
-                        "must_not": {
-                            "type": {
-                                "value": "chelovek"
-                            }
-                        }
+                        "must_not": [
+//                        {"type": {"value": "chelovek"}},
+//                        {"type": {"value": "donesenie"}},
+//                        {"type": {"value": "stranitsa"}}
+                        ]
                     }
                 }
             }
@@ -135,7 +122,8 @@ $(document).ready(function() {
     
     var customAPI, url;
     //var API = 'https://cdn.pamyat-naroda.ru/ind/';
-    var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/_search';
+    //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/_search';
+    var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
     //var imagesCDN = 'https://cdn.pamyat-naroda.ru/imageload/';
 
     $('#apiURL').val('');
@@ -150,6 +138,7 @@ $(document).ready(function() {
         API = customAPI || API;
         
         $('.results table, .pagination').hide();
+        $('.message').html('Идет поиск...');
         $('tbody', tableID).empty();
         $.ajax({
             url: API,
@@ -186,13 +175,15 @@ $(document).ready(function() {
                     data.hits.hits.forEach(function(row) {
                         var type = row._source._type;
                         if (type == 'chelovek_dopolnitelnoe_donesenie') {
-                            type = 'dopolnit_donesenie';
+                            type = 'dop_donesenie';
+                        } else if (type == 'chelovek_donesenie') {
+                            type = 'donesenie';
                         } else if (type == 'chelovek_kartoteka_memorial') {
-                            type = 'kartoteka_memorial'
+                            type = 'kartoteka_memorial';
                         } else if (type == 'chelovek_kniga_pamyati') {
-                            type = 'kniga_pamyati'
+                            type = 'kniga_pamyati';
                         } else if (type == 'chelovek_pechatnoi_knigi_pamyati') {
-                            type = 'pech_knigi_pamyati'
+                            type = 'pech_knigi_pamyati';
                         }
 
                         link = '<a href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
@@ -208,6 +199,7 @@ $(document).ready(function() {
                             (row._source.data_vibitiya ? row._source.data_vibitiya: '') + '</td><td>' +
                             (row._source.prichina_vibitiya ? row._source.prichina_vibitiya: '') + '</td><td>' +
                             (row._source.poslednee_mesto_sluzhbi ? row._source.poslednee_mesto_sluzhbi: '') + '</td><td>' +
+                            (row._source.data_i_pervichnoe_mesto_zahoroneniya ? row._source.data_i_pervichnoe_mesto_zahoroneniya: '') + '</td><td>' +
                             type + '</td>';
                         trHTML += '</tr>';
                     });
@@ -353,9 +345,47 @@ $(document).ready(function() {
                 }
             });
         }
-
+        
+        if ($("#rank").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#rank").val().trim(),
+                    "default_field": "rank",
+                    "default_operator": "and"
+                }
+            });
+        }
+        
+        if ($("#prichina_vibitiya").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#prichina_vibitiya").val().trim(),
+                    "default_field": "prichina_vibitiya",
+                    "default_operator": "and"
+                }
+            });
+        }
+        
+        if ($("#data_i_pervichnoe_mesto_zahoroneniya").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#data_i_pervichnoe_mesto_zahoroneniya").val().trim(),
+                    "default_field": "data_i_pervichnoe_mesto_zahoroneniya",
+                    "default_operator": "and"
+                }
+            });
+        }
+        
         if ($("#size").val().trim() != '') {
             params.size = parseInt($("#size").val().trim());
+        }
+
+        if ($("#doc_id").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "term": {
+                    "id": $("#doc_id").val().trim()
+                }
+            });
         }
 
         var sort = $("#sort").val().trim();
@@ -375,7 +405,7 @@ $(document).ready(function() {
 
 
     function addAsterisk(term) {
-        // костыль, добавляем звездочку перед датами
+        // костыль, добавляем звездочку перед датами, чтобы искались даты вида __.__.1941
         term = term.replace(/^\d/g, '*$&');
         term = term.replace(/([^\*\.\d])(\d)/g, '$1*$2');
         return term;
@@ -404,6 +434,35 @@ $(document).ready(function() {
             params.from -= params.size;
             $('#params').val(JSON.stringify(params));
             $.fn.get_data();
+        }
+    });
+
+    function json2csv(hits) {
+        var fields = ('id,_type,last_name,first_name,middle_name,date_birth,place_birth,data_i_mesto_priziva,' +
+            'poslednee_mesto_sluzhbi,data_vibitiya,prichina_vibitiya,rank,data_i_pervichnoe_mesto_zahoroneniya').split(',');
+        var csv = '\ufeff"id";"Вид документа";"Фамилия";"Имя";"Отчество";"Дата Рождения";"Место Рождения";"Место Призыва";' +
+                '"Последнее Место Службы";"Дата Выбытия";"Причина Выбытия";"Звание";"Место Захоронения";"Info"\n';
+        hits.forEach(function(item) {
+            var row = '';
+            var link = '<a href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
+                row._id + '" target="_blank">' + row._id + '</a>';
+            fields.forEach(function(field) {
+                var value = item._source[field] ? '"' +item._source[field]+ '"' : '""';
+                value = value.replace(/[\r\n]/g,'');
+                row += value;
+                row += ';';
+            });
+            row += '"' + 'https://obd-memorial.ru/html/info.htm?id=' + item._id + '"';
+            row += '\n';
+            csv += row;
+        });
+        return csv;
+    }
+    $('#save-file').on('click', function(e) {
+        if (typeof response !== 'undefined') {
+            //var data = JSON.stringify(response, null, 2);
+            var data = json2csv(response.hits.hits);
+            downloadObject(data, 'data.csv', 'text/csv;charset=utf-8;');
         }
     });
 
@@ -459,4 +518,5 @@ $(document).ready(function() {
         var path = $(this).find('img').attr( "title" );
         copyTextToClipboard(path);
     });
+    
 });
