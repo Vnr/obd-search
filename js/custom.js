@@ -222,7 +222,7 @@ $(document).ready(function() {
                             (row._source.prichina_vibitiya ? row._source.prichina_vibitiya: '') + '</td><td>' +
                             division + '</td><td>' +
                             normalizeField(row._source.rank) + '</td><td>' +
-                            normalizeField(row._source.data_i_pervichnoe_mesto_zahoroneniya) + '</td><td class="nowrap">' +
+                            normalizeField(row._source.data_i_pervichnoe_mesto_zahoroneniya) + '</td><td>' +
                             normalizeField(row._source.naimenovanie_nagradi) + '</td><td>' +
                             normalizeField(row._source.nomer_fonda) + '</td><td>' +
                             normalizeField(row._source.nomer_opisi) + '</td><td>' +
