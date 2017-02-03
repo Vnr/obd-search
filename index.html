@@ -81,10 +81,22 @@
                         <input class="pure-input-1" type="text" id="prichina_vibitiya" placeholder="Причина выбытия" title="Причина выбытия">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
-                        <input class="pure-input-1" type="text" id="data_i_pervichnoe_mesto_zahoroneniya" placeholder="Дата и первичное место захороения" title="Дата и первичное место захороения">
+                        <input class="pure-input-1" type="text" id="data_i_pervichnoe_mesto_zahoroneniya" placeholder="Дата и первичное место захороения" title="Дата и первичное место захоронения">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
                         <input class="pure-input-1" type="text" id="poslednee_mesto_sluzhbi" placeholder="Последнее место службы" title="Последнее место службы">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="fond" placeholder="Фонд" title="Фонд">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="opis" placeholder="Опись" title="Опись">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="delo" placeholder="Дело" title="Дело">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="nagrada" placeholder="Награда" title="Награда">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
                         <input class="pure-input-1" type="number" id="size" placeholder="Количество результатов" value='50' title="Количество результатов" min=0 max=5000>
@@ -114,43 +126,33 @@
                             <div class="checkboxes_container">
                                 <div id="checkboxes">
                                     <label>
-                                        <input type="checkbox" id="reset_checkboxes" autocomplete="off" value="Любой" checked><b>Любой</b>
+                                        <input type="checkbox" id="reset_checkboxes" autocomplete="off" value="Любой"><b>Любой</b>
                                     </label>
                                     <div class='options'>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Боевые донесения, оперсводки">Боевые донесения, оперсводки</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_donesenie" checked>Донесения о безвозвратных потерях</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Боевые приказы и распоряжения">Боевые приказы и распоряжения</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_dopolnitelnoe_donesenie" checked>Документы, уточняющих потери</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Директивы и указания">Директивы и указания</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_prikaz" checked>Приказы об исключении из списков</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Доклады">Доклады</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_gospital" checked>Документы госпиталей и медсанбатов</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Карты">Карты</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_zahoronenie" checked>Поименные списки захоронений</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Отчеты о боевых действиях">Отчеты о боевых действиях</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_eksgumatsiya" checked>Протоколы эксгумации</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Переговоры">Переговоры</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_vpp" checked>Данные военно-пересыльных пунктов</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Планы операций">Планы операций</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_plen" checked>Документы о военнопленных</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Планы">Планы</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_kartoteka_memorial" checked>Картотека Мемориала</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Постановления">Постановления</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_kniga_pamyati" checked>Книги памяти</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Приказы">Приказы</label>
+                                            <input type="checkbox" autocomplete="off" value="chelovek_pechatnoi_knigi_pamyati" checked>Печатные книги памяти</label>
                                         <label>
-                                            <input type="checkbox" autocomplete="off" value="Прочие документы">Прочие документы</label>
-                                        <label>
-                                            <input type="checkbox" autocomplete="off" value="Разведывательные бюллетени и донесения">Разведывательные бюллетени и донесения</label>
-                                        <label>
-                                            <input type="checkbox" autocomplete="off" value="Рапорты">Рапорты</label>
-                                        <label>
-                                            <input type="checkbox" autocomplete="off" value="Сведения">Сведения</label>
-                                        <label>
-                                            <input type="checkbox" autocomplete="off" value="Справки">Справки</label>
-                                        <label>
-                                            <input type="checkbox" autocomplete="off" value="Схемы">Схемы</label>
+                                            <input type="checkbox" autocomplete="off" value="delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka" checked>Наградные дела</label>
                                     </div>
                                 </div>
                             </div>
@@ -184,6 +186,7 @@
             <thead>
                 <tr>
                     <th>id</th>
+                    <th>type</th>
                     <th>last_name</th>
                     <th>first_name</th>
                     <th>middle_name</th>
@@ -193,8 +196,12 @@
                     <th>data_vibitiya</th>
                     <th>prich_vibitiya</th>
                     <th>mesto_sluzhbi</th>
-                    <th>mesto_zahoroneniya</th>
-                    <th>type</th>
+                    <th>rank</th>
+                    <th>mesto_zahoron</th>
+                    <th>nagrada</th>
+                    <th>fond</th>
+                    <th>opis</th>
+                    <th>delo</th>
                 </tr>
             </thead>
             <tbody></tbody>

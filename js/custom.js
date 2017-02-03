@@ -70,6 +70,9 @@ function downloadObject(text, filename, type) {
     }
 }
 
+function normalizeField(text) {
+    return text ? text : "";
+}
 // Main
 $(document).ready(function() {
     $.extend($.tablesorter.defaults, {
@@ -123,25 +126,23 @@ $(document).ready(function() {
     var customAPI, url;
     //var API = 'https://cdn.pamyat-naroda.ru/ind/';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/_search';
-    var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
+    //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
+    var API = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
     //var imagesCDN = 'https://cdn.pamyat-naroda.ru/imageload/';
 
     $('#apiURL').val('');
-    $('#apiURL').on('change', function() {
-        customAPI = $('#apiURL').val();
-    });
     
     jQuery.fn.get_data = function() {
         var tableID, link;
         tableID = '#res_table';
         
-        API = customAPI || API;
+        var URL = $('#apiURL').val() || API;
         
         $('.results table, .pagination').hide();
         $('.message').html('Идет поиск...');
         $('tbody', tableID).empty();
         $.ajax({
-            url: API,
+            url: URL,
             type: "POST",
             data: JSON.stringify(params),
             contentType: 'text/plain',
@@ -173,7 +174,7 @@ $(document).ready(function() {
                 if (data.hits.total > 0) {
                     var trHTML = '';
                     data.hits.hits.forEach(function(row) {
-                        var type = row._source._type;
+                        var type = row._type;
                         if (type == 'chelovek_dopolnitelnoe_donesenie') {
                             type = 'dop_donesenie';
                         } else if (type == 'chelovek_donesenie') {
@@ -185,22 +186,47 @@ $(document).ready(function() {
                         } else if (type == 'chelovek_pechatnoi_knigi_pamyati') {
                             type = 'pech_knigi_pamyati';
                         }
+                        type = type.replace('chelovek_', '');
+                        
+                        var mesto_priziva = '';
+                        if (row._source.data_i_mesto_priziva) {
+                            mesto_priziva = row._source.data_i_mesto_priziva;
+                        } else if (row._source.mesto_priziva) {
+                            mesto_priziva = row._source.mesto_priziva;
+                        }
+                        
+                        var division = '';
+                        if (row._source.poslednee_mesto_sluzhbi) {
+                            division = row._source.poslednee_mesto_sluzhbi;
+                        } else if (row._source.division) {
+                            division = row._source.division;
+                        }
 
                         link = '<a href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
                             row._id + '" target="_blank">' + row._id + '</a>';
+                        
+                        //https://pamyat-naroda.ru/heroes/podvig-chelovek_nagrazhdenie150869766/
+                        link = '<a href="' + 'https://pamyat-naroda.ru/heroes/' + row._index.split('_')[0] +
+                            '-' + row._type + row._id + '/" target="_blank">' + row._id + '</a>';
+                        
                         trHTML +=
-                            '<tr><td>' + link + '</td><td class="nowrap">' +
+                            '<tr><td>' + link + '</td><td>' +
+                            type + '</td><td class="nowrap">' +
                             (row._source.last_name ? row._source.last_name : '') + '</td><td>' +
                             (row._source.first_name ? row._source.first_name : '') + '</td><td class="nowrap">' +
                             (row._source.middle_name ? row._source.middle_name : '') + '</td><td class="nowrap">' +
                             (row._source.date_birth ? row._source.date_birth : '') + '</td><td>' +
                             (row._source.place_birth ? row._source.place_birth : '') + '</td><td>' +
-                            (row._source.data_i_mesto_priziva ? row._source.data_i_mesto_priziva : '') + '</td><td>' +
+                            mesto_priziva + '</td><td>' +
                             (row._source.data_vibitiya ? row._source.data_vibitiya: '') + '</td><td>' +
                             (row._source.prichina_vibitiya ? row._source.prichina_vibitiya: '') + '</td><td>' +
-                            (row._source.poslednee_mesto_sluzhbi ? row._source.poslednee_mesto_sluzhbi: '') + '</td><td>' +
-                            (row._source.data_i_pervichnoe_mesto_zahoroneniya ? row._source.data_i_pervichnoe_mesto_zahoroneniya: '') + '</td><td>' +
-                            type + '</td>';
+                            division + '</td><td>' +
+                            normalizeField(row._source.rank) + '</td><td>' +
+                            normalizeField(row._source.data_i_pervichnoe_mesto_zahoroneniya) + '</td><td class="nowrap">' +
+                            normalizeField(row._source.naimenovanie_nagradi) + '</td><td>' +
+                            normalizeField(row._source.nomer_fonda) + '</td><td>' +
+                            normalizeField(row._source.nomer_opisi) + '</td><td>' +
+                            normalizeField(row._source.nomer_dela) + '</td>';
                         trHTML += '</tr>';
                     });
                     $('tbody', tableID).append(trHTML);
@@ -255,13 +281,15 @@ $(document).ready(function() {
             });
         }
         
-        $("#checkboxes div input:checked").each(function(k, v) {
-            params.query.filtered.query.bool.should.push({
-                "match_phrase": {
-                    "document_type": v.value.trim()
-                }
+        if ($("#checkboxes div input:checked").length) {
+            var docTypes = '';
+            $("#checkboxes div input:checked").each(function(k, v) {
+                docTypes += v.value.trim() + ',';
             });
-        });
+            API = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/' + docTypes + '/_search';
+        } else {
+            API = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
+        }
             
         if ($("#place_birth").val().trim() != '') {
             params.query.filtered.query.bool.must.push({
@@ -277,7 +305,8 @@ $(document).ready(function() {
             params.query.filtered.query.bool.must.push({
                 "query_string": {
                     "query": $("#poslednee_mesto_sluzhbi").val().trim(),
-                    "default_field": "poslednee_mesto_sluzhbi",
+                    //"default_field": "poslednee_mesto_sluzhbi",
+                    "fields" : ["poslednee_mesto_sluzhbi", "division"],
                     "default_operator": "and"
                         // "analyze_wildcard": "true"
                 }
@@ -376,6 +405,48 @@ $(document).ready(function() {
             });
         }
         
+        if ($("#fond").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#fond").val().trim(),
+                    "default_field": "nomer_fonda",
+                    "default_operator": "and"
+                }
+            });
+        }
+
+        if ($("#opis").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#opis").val().trim(),
+                    "default_field": "nomer_opisi",
+                    "default_operator": "and"
+                }
+            });
+        }
+
+        if ($("#delo").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#delo").val().trim(),
+                    "default_field": "nomer_dela",
+                    "default_operator": "and"
+                }
+            });
+        }
+
+        if ($("#nagrada").val().trim() != '') {
+            params.query.filtered.query.bool.must.push({
+                "query_string": {
+                    "query": $("#nagrada").val().trim(),
+                    "default_field": "naimenovanie_nagradi",
+                    "default_operator": "and"
+                }
+            });
+        }
+
+
+        
         if ($("#size").val().trim() != '') {
             params.size = parseInt($("#size").val().trim());
         }
@@ -439,9 +510,10 @@ $(document).ready(function() {
 
     function json2csv(hits) {
         var fields = ('id,_type,last_name,first_name,middle_name,date_birth,place_birth,data_i_mesto_priziva,' +
-            'poslednee_mesto_sluzhbi,data_vibitiya,prichina_vibitiya,rank,data_i_pervichnoe_mesto_zahoroneniya').split(',');
+            'poslednee_mesto_sluzhbi,data_vibitiya,prichina_vibitiya,rank,data_i_pervichnoe_mesto_zahoroneniya,naimenovanie_nagradi,' +
+            'nomer_fonda,nomer_opisi,nomer_dela').split(',');
         var csv = '\ufeff"id";"Вид документа";"Фамилия";"Имя";"Отчество";"Дата Рождения";"Место Рождения";"Место Призыва";' +
-                '"Последнее Место Службы";"Дата Выбытия";"Причина Выбытия";"Звание";"Место Захоронения";"Info"\n';
+                '"Последнее Место Службы";"Дата Выбытия";"Причина Выбытия";"Звание";"Место Захоронения";"Награда";"Фонд";"Опись";"Дело";"Info"\n';
         hits.forEach(function(item) {
             var row = '';
             var link = '<a href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
@@ -452,7 +524,9 @@ $(document).ready(function() {
                 row += value;
                 row += ';';
             });
-            row += '"' + 'https://obd-memorial.ru/html/info.htm?id=' + item._id + '"';
+            //row += '"' + 'https://obd-memorial.ru/html/info.htm?id=' + item._id + '"';
+            row += '"' + 'https://pamyat-naroda.ru/heroes/' + item._index.split('_')[0] + '-' + item._type + item._id + '"';
+                                    
             row += '\n';
             csv += row;
         });
@@ -474,7 +548,7 @@ $(document).ready(function() {
     });
 
     // Checkboxes
-    $('.selectBox1').click(function(e) {
+    $('.selectBox').click(function(e) {
         $('#checkboxes').toggle();
         $('.multiselect').toggleClass('active');
     });
