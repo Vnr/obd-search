@@ -9,14 +9,11 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
     <!--<![endif]-->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css">
     <link rel="stylesheet" href="css/custom.css">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta description="Поиск по картотеке ОБД Мемориал obd-memorial.ru">
-
     <title>Поиск по картотеке ОБД Мемориал obd-memorial.ru</title>
 </head>
 
@@ -61,9 +58,9 @@
                 </div>
                 <div class="pure-g">
                     <div class="pure-u-1-2 pure-u-md-1-4">
-                        <input class="pure-input-1" type="text" id="date_birth" placeholder="Дата рождения" title="Дата рождения">
+                        <input class="pure-input-1" type="text" id="date_birth" placeholder="Дата рождения (ДД.ММ.ГГГГ)" title="Дата рождения">
                     </div>
-                     <div class="pure-u-1-2 pure-u-md-1-4">
+                    <div class="pure-u-1-2 pure-u-md-1-4">
                         <input class="pure-input-1" type="text" id="place_birth" placeholder="Место рождения" title="Место рождения">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
@@ -81,10 +78,22 @@
                         <input class="pure-input-1" type="text" id="prichina_vibitiya" placeholder="Причина выбытия" title="Причина выбытия">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
-                        <input class="pure-input-1" type="text" id="data_i_pervichnoe_mesto_zahoroneniya" placeholder="Дата и первичное место захоронения" title="Дата и первичное место захоронения">
+                        <input class="pure-input-1" type="text" id="data_i_pervichnoe_mesto_zahoroneniya" placeholder="Первичное место захоронения" title="Первичное место захоронения">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
                         <input class="pure-input-1" type="text" id="poslednee_mesto_sluzhbi" placeholder="Последнее место службы" title="Последнее место службы">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="data_pleneniya" placeholder="Дата пленения" title="Дата пленения">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="mesto_pleneniya" placeholder="Место пленения" title="Место пленения">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="lager" placeholder="Лагерь" title="Лагерь">
+                    </div>
+                    <div class="pure-u-1-2 pure-u-md-1-4">
+                        <input class="pure-input-1" type="text" id="gospital" placeholder="Госпиталь" title="Госпиталь">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
                         <input class="pure-input-1" type="text" id="fond" placeholder="Фонд" title="Фонд">
@@ -96,13 +105,69 @@
                         <input class="pure-input-1" type="text" id="delo" placeholder="Дело" title="Дело">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
-                        <input class="pure-input-1" type="text" id="nagrada" placeholder="Награда" title="Награда">
+                        <input class="pure-input-1" type="text" id="doc_id" placeholder="ID документа" title="ID документа">
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
                         <input class="pure-input-1" type="number" id="size" placeholder="Количество результатов" value='50' title="Количество результатов" min=0 max=5000>
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
-                        <input class="pure-input-1" type="text" id="doc_id" placeholder="ID документа" title="ID документа">
+                        <select class="pure-input-1" id="nagrada">
+                            <option value="" selected="selected">Награды</option>
+                            <option>Герой Советского Союза</option>
+                            <option>Орден Ленина</option>
+                            <option>Орден Красного Знамени</option>
+                            <option>Орден Красной Звезды</option>
+                            <option>Орден Отечественной Войны</option>
+                            <option>Орден Отечественной Войны I степени</option>
+                            <option>Орден Отечественной Войны II степени</option>
+                            <option>Орден Славы</option>
+                            <option>Орден Славы I степени</option>
+                            <option>Орден Славы II степени</option>
+                            <option>Орден Славы III степени</option>
+                            <option>Орден Александра Невского</option>
+                            <option>Орден Богдана Хмельницкого</option>
+                            <option>Орден Богдана Хмельницкого I степени</option>
+                            <option>Орден Богдана Хмельницкого II степени</option>
+                            <option>Орден Богдана Хмельницкого III степени</option>
+                            <option>Орден Кутузова</option>
+                            <option>Орден Кутузова I степени</option>
+                            <option>Орден Кутузова II степени</option>
+                            <option>Орден Кутузова III степени</option>
+                            <option>Орден Нахимова</option>
+                            <option>Орден Нахимова I степени</option>
+                            <option>Орден Нахимова II степени</option>
+                            <option>Орден Победы</option>
+                            <option>Орден Суворова</option>
+                            <option>Орден Суворова I степени</option>
+                            <option>Орден Суворова II степени</option>
+                            <option>Орден Суворова III степени</option>
+                            <option>Орден Ушакова</option>
+                            <option>Орден Ушакова I степени</option>
+                            <option>Орден Ушакова II степени</option>
+                            <option>Орден «Знак Почёта»</option>
+                            <option>Медаль «За отвагу»</option>
+                            <option>Медаль «За боевые заслуги»</option>
+                            <option>Медаль Ушакова</option>
+                            <option>Медаль Нахимова</option>
+                            <option>Медаль «За взятие Берлина»</option>
+                            <option>Медаль «За взятие Будапешта»</option>
+                            <option>Медаль «За взятие Вены»</option>
+                            <option>Медаль «За взятие Кенигсберга»</option>
+                            <option>Медаль «За оборону Кавказа»</option>
+                            <option>Медаль «За оборону Киева»</option>
+                            <option>Медаль «За оборону Ленинграда»</option>
+                            <option>Медаль «За оборону Москвы»</option>
+                            <option>Медаль «За оборону Одессы»</option>
+                            <option>Медаль «За оборону Севастополя»</option>
+                            <option>Медаль «За оборону Советского Заполярья»</option>
+                            <option>Медаль «За оборону Сталинграда»</option>
+                            <option>Медаль «За освобождение Белграда»</option>
+                            <option>Медаль «За освобождение Варшавы»</option>
+                            <option>Медаль «За освобождение Праги»</option>
+                            <option>Медаль «За победу над Германией</option>
+                            <option>Медаль «За победу над Японией»</option>
+                            <option>Медаль «Партизану Отечественной Войны»</option>
+                        </select>
                     </div>
                     <div class="pure-u-1-2 pure-u-md-1-4">
                         <select class="pure-input-1" name="sort" id="sort">
@@ -174,14 +239,12 @@
             </div>
         </form>
     </div>
-
     <div class="results">
         <div class="message"></div>
         <div class="pagination">
             <a href="javascript:void(0)" class="prev">  &#8592; Назад</a>
             <a href="javascript:void(0)" class="next">Вперед &#8594; </a>
         </div>
-
         <table id="res_table" border='1' cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
@@ -192,7 +255,7 @@
                     <th>middle_name</th>
                     <th>date_birth</th>
                     <th>place_birth</th>
-                    <th>data_i_mesto_priziva</th>
+                    <th>mesto_priziva</th>
                     <th>data_vibitiya</th>
                     <th>prich_vibitiya</th>
                     <th>mesto_sluzhbi</th>
@@ -206,19 +269,16 @@
             </thead>
             <tbody></tbody>
         </table>
-
         <!--<h1 style="color:red">Поиск может работать с перебоями, т.к. администраторы pamyatnaroda.mil.ru блокируют доступ к API поиска.</h1>-->
-
         <div class="pagination">
             <a href="javascript:void(0)" class="prev">  &#8592; Назад</a>
             <a href="javascript:void(0)" class="next">Вперед &#8594; </a>
         </div>
     </div>
-
     <div id="info" class="white-popup mfp-hide">
         <p>При поиске можно использовать подстановочные символы ? и *, например, "К?рнелюк", "Данил*". Для исключения слова или словосочетания перед ним надо поставить знак "-". Например, "Боровск -(Орловская обл)". Для поиска точной фразы, заключите её в кавычки: "222 сд". Для поиска любого из слов используйте оператор ||: "рядовой || cержант".
-        <br>
-        <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html">Инструкция по расширенному языку запросов.</a>
+            <br>
+            <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html">Инструкция по расширенному языку запросов.</a>
         </p>
         <hr>
         <p>Поиск оперативных документов с Памяти народа доступен по ссылке <a href="http://vnr.github.io/pamyat-naroda-search/" target="_blank">http://vnr.github.io/pamyat-naroda-search/</a>
@@ -231,27 +291,21 @@
             <p><a href="https://gist.github.com/Vnr/6d30bbf1fe850c1ab465" target="_blank">Скрипт для выкачивания дел на компьютер.</a>
             </p>
     </div>
-
     <noscript>
         <div class="white-popup">
             <h3>Включите javascript!</h3></div>
     </noscript>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!--[if lte IE 9]>
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js'></script>
 <![endif]-->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.min.css" rel="stylesheet">
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.23.3/css/theme.blue.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.23.3/js/jquery.tablesorter.combined.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js"></script>
     <script src="js/addclear.js"></script>
     <script src="js/custom.js"></script>
-
     <!-- Start of StatCounter Code for Default Guide -->
     <script type="text/javascript">
     var sc_project = 10609041;
@@ -269,34 +323,41 @@
         </div>
     </noscript>
     <!-- End of StatCounter Code for Default Guide -->
-    
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
-    (function (d, w, c) {
+    (function(d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
-                w.yaCounter34203165 = new Ya.Metrika({id:34203165,
-                        webvisor:true,
-                        clickmap:true,
-                        trackLinks:true,
-                        accurateTrackBounce:true,
-                        ut:"noindex"});
-            } catch(e) { }
+                w.yaCounter34203165 = new Ya.Metrika({
+                    id: 34203165,
+                    webvisor: true,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    ut: "noindex"
+                });
+            } catch (e) {}
         });
 
         var n = d.getElementsByTagName("script")[0],
             s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
+            f = function() {
+                n.parentNode.insertBefore(s, n);
+            };
         s.type = "text/javascript";
         s.async = true;
         s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
         if (w.opera == "[object Opera]") {
             d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
+        } else {
+            f();
+        }
     })(document, window, "yandex_metrika_callbacks");
     </script>
-    <noscript><div><img src="//mc.yandex.ru/watch/34203165?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="//mc.yandex.ru/watch/34203165?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
 </body>
 
