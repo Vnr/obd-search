@@ -91,14 +91,8 @@ $(document).ready(function() {
     var params_template = {
         "query": {
             //"constant_score": {
-            "filtered": {
-                "query": {
-                    "bool": {
-                        "must": [],
-                        "should": [],
-                        "minimum_should_match": 1
-                    }
-                },
+            "bool": {
+                "must": [],
                 "filter": {
                     "bool": {
                         "must": [],
@@ -126,7 +120,7 @@ $(document).ready(function() {
     //var API = 'https://cdn.pamyat-naroda.ru/ind/';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/_search';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
-    var API = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
+    var API = 'https://cdn.pamyat-naroda.ru/ind2/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
     //var imagesCDN = 'https://cdn.pamyat-naroda.ru/imageload/';
 
     $('#apiURL').val('');
@@ -144,7 +138,7 @@ $(document).ready(function() {
             url: URL,
             type: "POST",
             data: JSON.stringify(params),
-            contentType: 'text/plain',
+            contentType: 'application/json; charset=UTF-8',
             dataType: 'json',
             error: function(data) {
                 response = data;
@@ -271,7 +265,7 @@ $(document).ready(function() {
         var date_birth = $("#date_birth").val().trim();
         date_birth = addAsterisk(date_birth);
         if (date_birth != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": date_birth,
                     "default_field": "date_birth",
@@ -284,7 +278,7 @@ $(document).ready(function() {
         var data_vibitiya = $("#data_vibitiya").val().trim();
         data_vibitiya = addAsterisk(data_vibitiya);
         if (data_vibitiya != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": data_vibitiya,
                     "fields": ["data_vibitiya", "date_death", "data_i_pervichnoe_mesto_zahoroneniya"],
@@ -299,13 +293,13 @@ $(document).ready(function() {
             $("#checkboxes div input:checked").each(function(k, v) {
                 docTypes += v.value.trim() + ',';
             });
-            API = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/' + docTypes + '/_search';
+            API = 'https://cdn.pamyat-naroda.ru/ind2/memorial,podvig,pamyat/' + docTypes + '/_search';
         } else {
-            API = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
+            API = 'https://cdn.pamyat-naroda.ru/ind2/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
         }
 
         if ($("#place_birth").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#place_birth").val().trim(),
                     "default_field": "place_birth",
@@ -315,7 +309,7 @@ $(document).ready(function() {
             });
         }
         if ($("#poslednee_mesto_sluzhbi").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#poslednee_mesto_sluzhbi").val().trim(),
                     //"default_field": "poslednee_mesto_sluzhbi",
@@ -329,7 +323,7 @@ $(document).ready(function() {
         var data_i_mesto_priziva = $("#data_i_mesto_priziva").val().trim();
         data_i_mesto_priziva = addAsterisk(data_i_mesto_priziva);
         if (data_i_mesto_priziva != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": data_i_mesto_priziva,
                     "default_field": "data_i_mesto_priziva",
@@ -339,7 +333,7 @@ $(document).ready(function() {
             });
         }
         // if ($("#doc_name").val().trim() != '') {
-        //     params.query.filtered.query.bool.must.push({
+        //     params.query.bool.must.push({
         //         "match": {
         //             "document_name": {
         //                 "query": $("#doc_name").val().trim(),
@@ -351,7 +345,7 @@ $(document).ready(function() {
 
         var first_name = $("#first_name").val().trim();
         if (first_name != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": first_name,
                     "default_field": "first_name",
@@ -363,7 +357,7 @@ $(document).ready(function() {
 
         var last_name = $("#last_name").val().trim();
         if (last_name != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 //     "match_phrase": {
                 //         "authors": {
                 //             "query": author,
@@ -379,7 +373,7 @@ $(document).ready(function() {
         }
 
         if ($("#middle_name").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#middle_name").val().trim(),
                     "default_field": "middle_name",
@@ -389,7 +383,7 @@ $(document).ready(function() {
         }
 
         if ($("#rank").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#rank").val().trim(),
                     "default_field": "rank",
@@ -399,7 +393,7 @@ $(document).ready(function() {
         }
 
         if ($("#prichina_vibitiya").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#prichina_vibitiya").val().trim(),
                     "default_field": "prichina_vibitiya",
@@ -409,7 +403,7 @@ $(document).ready(function() {
         }
 
         if ($("#data_i_pervichnoe_mesto_zahoroneniya").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#data_i_pervichnoe_mesto_zahoroneniya").val().trim(),
                     "default_field": "data_i_pervichnoe_mesto_zahoroneniya",
@@ -419,7 +413,7 @@ $(document).ready(function() {
         }
 
         if ($("#gospital").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#gospital").val().trim(),
                     "default_field": "gospital",
@@ -429,7 +423,7 @@ $(document).ready(function() {
         }
 
         if ($("#mesto_pleneniya").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#mesto_pleneniya").val().trim(),
                     "default_field": "mesto_pleneniya",
@@ -439,7 +433,7 @@ $(document).ready(function() {
         }
 
         if ($("#lager").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#lager").val().trim(),
                     "default_field": "lager",
@@ -449,7 +443,7 @@ $(document).ready(function() {
         }
 
         if ($("#data_pleneniya").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": addAsterisk($("#data_pleneniya").val().trim()),
                     "default_field": "data_pleneniya",
@@ -459,7 +453,7 @@ $(document).ready(function() {
         }
 
         if ($("#fond").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#fond").val().trim(),
                     "default_field": "nomer_fonda",
@@ -469,7 +463,7 @@ $(document).ready(function() {
         }
 
         if ($("#opis").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#opis").val().trim(),
                     "default_field": "nomer_opisi",
@@ -479,7 +473,7 @@ $(document).ready(function() {
         }
 
         if ($("#delo").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": $("#delo").val().trim(),
                     "default_field": "nomer_dela",
@@ -490,7 +484,7 @@ $(document).ready(function() {
 
         var nagrada = $("#nagrada option:selected").text();
         if (nagrada && nagrada != 'Награды') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "query_string": {
                     "query": nagrada,
                     "default_field": "naimenovanie_nagradi",
@@ -504,7 +498,7 @@ $(document).ready(function() {
         }
 
         if ($("#doc_id").val().trim() != '') {
-            params.query.filtered.query.bool.must.push({
+            params.query.bool.must.push({
                 "term": {
                     "id": $("#doc_id").val().trim()
                 }
@@ -562,10 +556,10 @@ $(document).ready(function() {
 
     function json2csv(hits) {
         var fields = ('id,_type,last_name,first_name,middle_name,date_birth,place_birth,data_i_mesto_priziva,' +
-            'poslednee_mesto_sluzhbi,data_vibitiya,prichina_vibitiya,rank,data_i_pervichnoe_mesto_zahoroneniya,naimenovanie_nagradi,' +
+            'poslednee_mesto_sluzhbi,data_vibitiya,data_pleneniya,prichina_vibitiya,rank,data_i_pervichnoe_mesto_zahoroneniya,naimenovanie_nagradi,' +
             'nomer_fonda,nomer_opisi,nomer_dela').split(',');
         var csv = '\ufeff"id";"Вид документа";"Фамилия";"Имя";"Отчество";"Дата Рождения";"Место Рождения";"Место Призыва";' +
-                '"Последнее Место Службы";"Дата Выбытия";"Причина Выбытия";"Звание";"Место Захоронения";"Награда";"Фонд";"Опись";"Дело";"Info"\n';
+                '"Последнее Место Службы";"Дата Выбытия";"Дата пленения";"Причина Выбытия";"Звание";"Место Захоронения";"Награда";"Фонд";"Опись";"Дело";"URL"\n';
         hits.forEach(function(item) {
             var row = '';
             fields.forEach(function(field) {
