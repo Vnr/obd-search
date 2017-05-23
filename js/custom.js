@@ -555,7 +555,7 @@ $(document).ready(function() {
     });
 
     function json2csv(hits) {
-        var fields = ('id,_type,last_name,first_name,middle_name,date_birth,place_birth,data_i_mesto_priziva,' +
+        var fields = ('id,__type,last_name,first_name,middle_name,date_birth,place_birth,data_i_mesto_priziva,' +
             'poslednee_mesto_sluzhbi,data_vibitiya,data_pleneniya,prichina_vibitiya,rank,data_i_pervichnoe_mesto_zahoroneniya,naimenovanie_nagradi,' +
             'nomer_fonda,nomer_opisi,nomer_dela').split(',');
         var csv = '\ufeff"id";"Вид документа";"Фамилия";"Имя";"Отчество";"Дата Рождения";"Место Рождения";"Место Призыва";' +
