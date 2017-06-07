@@ -169,15 +169,19 @@ $(document).ready(function() {
                     data.hits.hits.forEach(function(row) {
                         var type = row._type;
                         if (type == 'chelovek_dopolnitelnoe_donesenie') {
-                            type = 'dop_donesenie';
+                            type = 'доп. донесение';
                         } else if (type == 'chelovek_donesenie') {
-                            type = 'donesenie';
+                            type = 'донесение';
                         } else if (type == 'chelovek_kartoteka_memorial') {
-                            type = 'kartoteka_memorial';
+                            type = 'kart memorial';
                         } else if (type == 'chelovek_kniga_pamyati') {
-                            type = 'kniga_pamyati';
+                            type = 'книга памяти';
                         } else if (type == 'chelovek_pechatnoi_knigi_pamyati') {
-                            type = 'pech_knigi_pamyati';
+                            type = 'печатная кн. пам.';
+                        } else if (type == 'chelovek_nagrazhdenie') {
+                            type = 'награжд.';
+                        } else if (type == 'chelovek_predstavlenie') {
+                            type = 'представл.';
                         }
                         type = type.replace('chelovek_', '');
 
@@ -209,6 +213,13 @@ $(document).ready(function() {
                             prichina_vibitiya = row._source.sudba;
                         }
 
+                        var data_vibitiya = '';
+                        if (row._source.data_vibitiya) {
+                            data_vibitiya = row._source.data_vibitiya;
+                        } else if (row._source.date_death) {
+                            data_vibitiya = row._source.date_death;
+                        }
+
                         link = '<a href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
                             row._id + '" target="_blank">' + row._id + '</a>';
 
@@ -225,7 +236,7 @@ $(document).ready(function() {
                             (row._source.date_birth ? row._source.date_birth : '') + '</td><td>' +
                             (row._source.place_birth ? row._source.place_birth : '') + '</td><td>' +
                             mesto_priziva + '</td><td>' +
-                            (row._source.data_vibitiya ? row._source.data_vibitiya: '') + '</td><td>' +
+                            data_vibitiya + '</td><td>' +
                             prichina_vibitiya + '</td><td>' +
                             division + '</td><td>' +
                             normalizeField(row._source.rank) + '</td><td>' +
@@ -406,7 +417,7 @@ $(document).ready(function() {
             params.query.bool.must.push({
                 "query_string": {
                     "query": $("#data_i_pervichnoe_mesto_zahoroneniya").val().trim(),
-                    "default_field": "data_i_pervichnoe_mesto_zahoroneniya",
+                    "fields": ["data_i_pervichnoe_mesto_zahoroneniya", "mesto_zahoroneniya"],
                     "default_operator": "and"
                 }
             });
