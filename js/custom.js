@@ -117,10 +117,10 @@ $(document).ready(function() {
     };
 
     var customAPI, url;
-    //var API = 'https://cdn.pamyat-naroda.ru/ind/';
+    var baseAPI = 'https://python-flask-test-1153.appspot.com/obd/memorial,podvig,pamyat/';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/_search';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
-    var API = 'https://cdn.pamyat-naroda.ru/ind2/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
+   // var API = 'https://python-flask-test-1153.appspot.com/obd/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
     //var imagesCDN = 'https://cdn.pamyat-naroda.ru/imageload/';
 
     $('#apiURL').val('');
@@ -138,7 +138,7 @@ $(document).ready(function() {
             url: URL,
             type: "POST",
             data: JSON.stringify(params),
-            contentType: 'application/json; charset=UTF-8',
+            contentType: 'text/plain', //'application/json; charset=UTF-8',
             dataType: 'json',
             error: function(data) {
                 response = data;
@@ -304,9 +304,9 @@ $(document).ready(function() {
             $("#checkboxes div input:checked").each(function(k, v) {
                 docTypes += v.value.trim() + ',';
             });
-            API = 'https://cdn.pamyat-naroda.ru/ind2/memorial,podvig,pamyat/' + docTypes + '/_search';
+            API = baseAPI + docTypes + '/_search';
         } else {
-            API = 'https://cdn.pamyat-naroda.ru/ind2/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
+            API = baseAPI + 'chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
         }
 
         if ($("#place_birth").val().trim() != '') {
