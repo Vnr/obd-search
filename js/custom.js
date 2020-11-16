@@ -117,8 +117,8 @@ $(document).ready(function() {
     };
 
     var customAPI, url;
-    var baseAPI = 'https://flask-pamyat-naroda.1d35.starter-us-east-1.openshiftapps.com/obd/memorial,podvig,pamyat/';
-    //var baseAPI = 'https://python-flask-test-1153.appspot.com/obd/memorial,podvig,pamyat/';
+    //var baseAPI = 'https://flask-pamyat-naroda.1d35.starter-us-east-1.openshiftapps.com/obd/memorial,podvig,pamyat/';
+    var baseAPI = 'https://python-flask-test-1153.appspot.com/obd/memorial,podvig,pamyat/';
     //var baseAPI = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
     //var API = 'https://python-flask-test-1153.appspot.com/obd/memorial,podvig,pamyat/chelovek_kartoteka_memorial,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati,chelovek_vpp,chelovek_donesenie,chelovek_gospital,chelovek_dopolnitelnoe_donesenie,chelovek_zahoronenie,chelovek_eksgumatsiya,chelovek_plen,chelovek_prikaz,delo_nagradnoe,chelovek_nagrazhdenie,chelovek_predstavlenie,chelovek_kartoteka,chelovek_yubileinaya_kartoteka,/_search';
