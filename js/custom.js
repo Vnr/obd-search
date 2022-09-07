@@ -222,11 +222,11 @@ $(document).ready(function() {
                             data_vibitiya = row._source.date_death;
                         }
 
-                        link = '<a href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
+                        link = '<a rel="noreferrer" href="' + 'https://obd-memorial.ru/html/info.htm?id=' +
                             row._id + '" target="_blank">' + row._id + '</a>';
 
                         //https://pamyat-naroda.ru/heroes/podvig-chelovek_nagrazhdenie150869766/
-                        link = '<a href="' + 'https://pamyat-naroda.ru/heroes/' + row._index.split('_')[0] +
+                        link = '<a rel="noreferrer" href="' + 'https://pamyat-naroda.ru/heroes/' + row._index.split('_')[0] +
                             '-' + row._type + row._id + '/" target="_blank">' + row._id + '</a>';
 
                         trHTML +=
