@@ -117,10 +117,8 @@ $(document).ready(function() {
     };
 
     var customAPI, url;
-    //var baseAPI = 'https://flask-pamyat-naroda.1d35.starter-us-east-1.openshiftapps.com/obd/memorial,podvig,pamyat/';
-    //var baseAPI = 'https://python-flask-test-1153.appspot.com/obd/memorial,podvig,pamyat/';
-    //var baseAPI = 'https://obd-search.herokuapp.com/obd/memorial,podvig,pamyat/';
-    var baseAPI = 'https://861lat.deta.dev/obd/memorial,podvig,pamyat/';
+    //var baseAPI = 'https://861lat.deta.dev/obd/memorial,podvig,pamyat/';
+    var baseAPI = 'https://first_micro-1-v0909977.deta.app/obd/memorial,podvig,pamyat/';
     //var baseAPI = 'https://cdn.pamyat-naroda.ru/ind/memorial,podvig,pamyat/';
     //var API = 'https://cdn.pamyat-naroda.ru/ind/memorial/chelovek_donesenie,chelovek_dopolnitelnoe_donesenie,chelovek_kartoteka_memorial,chelovek_prikaz,chelovek_plen,chelovek_gospital,chelovek_vpp,chelovek_zahoronenie,chelovek_kniga_pamyati,chelovek_pechatnoi_knigi_pamyati/_search';
     //var imagesCDN = 'https://cdn.pamyat-naroda.ru/imageload/';
